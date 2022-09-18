@@ -35,24 +35,32 @@ def bmi_calculation(row_dict):
         row_dict['BmiRange'] = '40 and above'
         row_dict['HealthRisk'] = 'Very High risk'
         
-    print(row_dict)
-
-def run(data):
+    return row_dict
+ 
+def run_bmi_observations(data):
     '''
     data @type: list of dict
     @return : dict with additional columns
     '''
-    for row in data:
-        bmi_calculation(row)
+    entries = []
+    for row_dict in data:
+        entries.append(bmi_calculation(row_dict))
+        
+    overweight_observations = filter(lambda row: row['BmiCategory'] == 'Overweight', entries)
+    overweight_female_observations = filter(lambda row: row['BmiCategory'] == 'Overweight' and row['Gender'] == 'Female', entries)
+    very_high_risk = filter(lambda row: row['HealthRisk'] == 'Very High risk', entries)
+    
+    print("Count of Overweight Observations: ", len(list(overweight_observations)))
+    print("Count of Overweight Observations and Female Gender: ", len(list(overweight_female_observations)))
+    print("Count of Very High Risk persons: ", len(list(very_high_risk)))
+
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('--jsonFile', action='store', required=True)
     args = arg_parser.parse_args()
     json_file_path = args.jsonFile
-    print(json_file_path)
     if os.path.exists(json_file_path):
         with open(json_file_path) as json_file:
             bmi_data = json.loads(json_file.read())
-            print(bmi_data)
-            run(bmi_data)
+            run_bmi_observations(bmi_data)
