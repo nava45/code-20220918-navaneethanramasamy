@@ -53,7 +53,12 @@ def run_bmi_observations(data):
     print("Count of Overweight Observations: ", len(list(overweight_observations)))
     print("Count of Overweight Observations and Female Gender: ", len(list(overweight_female_observations)))
     print("Count of Very High Risk persons: ", len(list(very_high_risk)))
-
+    
+    return {'overweight_observations_count': len(list(overweight_observations)),
+            'overweight_female_observations_count': len(list(overweight_female_observations)),
+            'very_high_risk_count': len(list(very_high_risk))
+            }
+    
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
