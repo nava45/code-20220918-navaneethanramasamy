@@ -1,0 +1,5 @@
+version: "3.4"
+services:
+  mybmi:
+    build: .
+    command: [ "python", "bmi.py" , "--jsonFile", "./input.json"]
