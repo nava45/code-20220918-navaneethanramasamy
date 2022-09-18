@@ -69,3 +69,5 @@ if __name__ == '__main__':
         with open(json_file_path) as json_file:
             bmi_data = json.loads(json_file.read())
             run_bmi_observations(bmi_data)
+    else:
+        print(f'The file({json_file_path}) is not found. Please Enter a valid Json file')
